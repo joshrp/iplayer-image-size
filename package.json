@@ -1,0 +1,24 @@
+{
+  "name": "iplayer-image-size",
+  "version": "1.0.0",
+  "description": "",
+  "main": "differences.js",
+  "dependencies": {
+    "dockerode": "^2.0.4",
+    "q": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshrp/iplayer-image-size.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joshrp/iplayer-image-size/issues"
+  },
+  "homepage": "https://github.com/joshrp/iplayer-image-size"
+}

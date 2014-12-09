@@ -16,7 +16,7 @@ for (var i in resultSets) {
         docker.createContainer(
             {
                 Image: 'cmfatih/phantomjs',
-                Cmd: ['/usr/bin/phantomjs', '/scripts/netlog.js', process.argv[2], i, ""+i],
+                Cmd: ['/usr/bin/phantomjs', '/scripts/netlog.js', process.argv[2], "1024", ""+i],
                 Volumes: {"/scripts": {}},
             }, function (err, container) {
                 container.attach({stream: true, logs: true, stdout: true, stderr: true}, function (err, stream) {
@@ -56,8 +56,26 @@ Q.all([resultSets[1024].promise, resultSets[900].promise, resultSets[500].promis
         parsed = JSON.parse(data[i].substr(resultLoc + 8))
 
         console.log('Total size for',parsed.viewportSize.width + ':', (parsed.size / 1024) + 'kb')
+        parsed.pids.forEach(function (info, j) {
+            if (pids[info.pid] === undefined) {
+                pids[info.pid] = {};
+            }
+            pids[info.pid][i] = info
+        })
     }
 
+    for (i in pids) {
+        different = false;
+        size = pids[i]["0"].size;
+        for (j in pids[i]) {
+            if (size !== pids[i][j].size) {
+                different = true;
+            }
+        }
+        if (different) {
+            console.log(i,'is different!',JSON.stringify(pids[i], null, 4));
+        }
+    }
 })
 
 // var test1 = process.argv[2];
