@@ -1,7 +1,11 @@
 #!/bin/bash
 
-sudo docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js http://bbc.co.uk$1 1024
+test1=$(docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js $1 1024)
 
-sudo docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js http://bbc.co.uk$1 600
+test2=$(docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js $1 1024)
 
-sudo docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js http://bbc.co.uk$1 400
+node ./process.js "$test1" "$test2"
+
+#docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js $1 600
+
+#docker run --rm -it --name=phantom -v $PWD:/scripts/ cmfatih/phantomjs /usr/bin/phantomjs /scripts/netlog.js $1 400
